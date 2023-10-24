@@ -23,7 +23,7 @@
         {%- for link in main_menu_linklist -%}
           {%- if link.links != blank -%}
             <div class="relative">
-              <button x-on:click="open = ! open" type="button" class="inline-flex items-center text-base text-gray-500 hover:text-gray-900">
+              <button x-on:click="open = ! open" type="button" class="inline-flex items-center text-base text-black hover:text-green-800">
                 {{ link.title }}
                 {% render 'icon-chevron-down' %}
               </button>
@@ -31,13 +31,13 @@
                 x-show="open" 
                 @click.away="open = false" 
                 class="absolute z-10 -ml-5 mt-5 transform px-2 w-screen max-w-md sm:px-0 lg:ml-0 lg:left-1/2 lg:-translate-x-1/2">
-                <div class="shadow-lg border ring-black ring-opacity-5 overflow-hidden rounded-lg">
+                <div class="border border-black overflow-hidden">
                   <div class="relative grid gap-6 bg-white px-5 py-6 sm:gap-8 sm:p-8">
                     {%- for subLink in link.links -%}
                       <!-- CREATE THE SUBLINK -->
-                    <a href="{{ subLink.url }}" class="-m-3 p-3 flex items start rounded-lg hover:bg-gray-100">
+                    <a href="{{ subLink.url }}" class="-m-3 p-3 flex items start hover:bg-gray-100">
                       <div class="ml-4">
-                        <p class="text-gray-900 text-base font-medium">
+                        <p class="text-black text-base font-medium">
                           {{ subLink.title }}
                         </p>
                       </div>
@@ -49,7 +49,7 @@
             </div>
           {%- else -%}
             <div class="relative">
-              <a href="{{ link.url }}" class="text-base text-gray-500 hover:text-gray-900">{{ link.title }}</a>
+              <a href="{{ link.url }}" class="text-base text-black hover:text-green-800">{{ link.title }}</a>
             </div>              
           {%- endif -%}
         {%- endfor -%}
@@ -59,30 +59,30 @@
       <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
         <button 
           x-on:click="cartOpen = ! cartOpen"
-          class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+          class="whitespace-nowrap text-base text-black hover:text-green-800">
           {% render 'icon-shopping-bag' %}
         </button>
         {%- if shop.customer_accounts_enabled -%}
-          <a href="{{ routes.account_login_url }}" class="text-base text-gray-500 hover:text-gray-900">Login</a>
-          <a href="{{ routes.account_register_url }}" class="text-base text-gray-500 hover:text-gray-900">Register</a>          
+          <a href="{{ routes.account_login_url }}" class="text-base text-black hover:text-green-800">Login</a>
+          <a href="{{ routes.account_register_url }}" class="text-base text-black hover:text-green-800">Register</a>          
         {%- endif -%}
       </div>
     </div>
   </div>
 
   <div x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
-    <div class="shadow-lg rounded-lg ring-1 ring-black ring-opacity-5 bg-white w-full">
-      <div class="p-5 divide-y-2 divide-gray-50">
+    <div class="border border-black ring-opacity-5 bg-white w-full">
+      <div class="p-5">
         <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
         <div class="flex items-center justify-between pb-3">
           <div>
-            <h1 class="text-lg text-gray-500">{{ title }}</h1>
+            <h1 class="text-lg text-black">{{ title }}</h1>
           </div>
           <div class="-mr-2">
             <button 
               x-on:click="mobileMenuOpen = false"
               type="button" 
-              class="bg-white rounded-md p-2 text-gray-500">
+              class="bg-white rounded-md p-2 text-black">
               {% render 'icon-close' %}
             </button>
           </div>
@@ -97,21 +97,21 @@
                   <button
                     x-on:click="{{ link_handle }} = ! {{ link_handle }}" 
                     type="button" 
-                    class="text-base text-gray-500 hover:text-gray-900 flex items-center justify-between w-full">
+                    class="text-base text-black hover:text-green-800 flex items-center justify-between w-full">
                     <div>{{ link.title }}</div>
                     {% render 'icon-chevron-down' %}
                   </button>
                   <div x-show="{{ link_handle }}" class="grid gap-y-7 py-3">
                     {%- for subLink in link.links -%}
                       <!-- CREATE THE SUBLINK -->
-                      <a href="{{ subLink.url }}" class="-m-3 p-3 mt-2 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
-                        <span class="ml-3 text-base font-medium text-gray-500">{{ subLink.title }}</span>
+                      <a href="{{ subLink.url }}" class="-m-3 p-3 mt-2 flex items-center text-black hover:text-green-800 hover:bg-gray-50">
+                        <span class="ml-3 text-base font-medium text-black">{{ subLink.title }}</span>
                       </a>
                     {%- endfor -%}
                   </div>
                 </div>                
               {%- else -%}
-                <a href="{{ link.url }}" class="-m-3 p-3 flex items-center rounded-md text-gray-500 hover:text-gray-900 hover:bg-gray-50">
+                <a href="{{ link.url }}" class="-m-3 p-3 flex items-center text-black hover:text-green-800 hover:bg-gray-50">
                   {{ link.title }}
                 </a>              
               {%- endif -%}

@@ -1,15 +1,15 @@
-<div class="w-full py-6 px-3">
-  <div class="border bg-white shadow-lg rounded-lg overflow-hidden">
+<div class="w-full">
+  <div class="overflow-hidden border border-black">
     <a href="{{ product_product.url }}">
       {% if product_product.featured_image %}
-        <div class="h-80 overflow-hidden">
-            <img 
-              class="w-full h-full object-cover transition duration-1000 ease-in-out hover:scale-105 transform" 
-              src="{{ product_product.featured_image | image_url }}" 
-              alt="{{ product_product.featured_image.alt }}" 
-              width="auto"
-              height="auto"
-              loading="lazy">
+        <div class="overflow-hidden">
+          <img 
+            class="w-full h-full object-cover transition duration-1000 ease-in-out hover:scale-105 transform" 
+            src="{{ product_product.featured_image | image_url }}" 
+            alt="{{ product_product.featured_image.alt }}" 
+            width="auto"
+            height="auto"
+            loading="lazy">
         </div>
       {% else %}
         {{ 'product-1' | placeholder_svg_tag: 'w-full h-full object-cover bg-gray-100' }}
