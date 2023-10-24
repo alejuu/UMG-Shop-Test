@@ -19,7 +19,7 @@
       </div>
 
       <!-- NAVIGATION MENU -->
-      <nav x-data="{ open: false }" class="kaka hidden md:flex space-x-10">
+      <nav x-data="{ open: false }" class="hidden md:flex space-x-10">
         {%- for link in main_menu_linklist -%}
           {%- if link.links != blank -%}
             <div class="relative">
@@ -57,9 +57,11 @@
       </nav>
 
       <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
-        <a href="{{ routes.cart_url }}" class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
+        <button 
+          x-on:click="cartOpen = ! cartOpen"
+          class="whitespace-nowrap text-base text-gray-500 hover:text-gray-900">
           {% render 'icon-shopping-bag' %}
-        </a>
+        </button>
         {%- if shop.customer_accounts_enabled -%}
           <a href="{{ routes.account_login_url }}" class="text-base text-gray-500 hover:text-gray-900">Login</a>
           <a href="{{ routes.account_register_url }}" class="text-base text-gray-500 hover:text-gray-900">Register</a>          

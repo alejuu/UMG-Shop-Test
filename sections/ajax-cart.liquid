@@ -1,0 +1,74 @@
+<aside class="fixed top-0 bottom-0 left-0 right-0 w-full h-full" x-show="cartOpen">
+  <div class="absolute w-full h-full bg-black opacity-60"></div>
+  <div class="absolute right-0 h-full bg-white max-w-sm flex flex-col" @click.away="cartOpen = false" data-ajax-cart-section>
+    <div class="w-full flex justify-between p-2">
+      <div class="w-full flex p-2 text-gray-500">
+        {% render 'icon-shopping-bag' %}
+        <span>({{ cart.item_count }})</span>   
+      </div>
+      <button 
+        x-on:click="cartOpen = false"
+        type="button" 
+        class="bg-white rounded-md p-2 text-gray-500 hover:text-gray-900 ml-auto">
+        {% render 'icon-close' %}
+      </button>
+    </div>
+    <div class="my-cart__items p-4" data-ajax-cart-section-scroll>
+      <!-- Loop through cart items -->
+      {% for line_item in cart.items %}
+        {% assign line_item_index = forloop.index %}
+        <div class="w-full border bg-white shadow-lg rounded-lg overflow-hidden p-2">
+          <div>
+            <a href="{{ line_item.url }}">{{ line_item.title | escape }}</a>
+          </div>
+          <p>{{ line_item.final_price | money }}</p>
+          <div>
+            <ajax-cart-quantity class="flex items-center">
+              <!-- "Minus one" button -->
+              <a data-ajax-cart-quantity-minus
+                href="{{ routes.cart_change_url }}?line={{ line_item_index }}&quantity={{ line_item.quantity | minus: 1 }}"
+                class="font-semibold"> 
+                {% render 'icon-minus' %}
+              </a>
+              <!-- Item quantity input -->
+              <input data-ajax-cart-quantity-input="{{ line_item_index }}"
+                name="updates[]" 
+                value="{{ line_item.quantity }}" 
+                type="number" 
+                form="my-ajax-cart-form"
+                class="w-5 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none" />
+              <!-- "Plus one" button -->
+              <a data-ajax-cart-quantity-plus
+                href="{{ routes.cart_change_url }}?line={{ line_item_index }}&quantity={{ line_item.quantity | plus: 1 }}"
+                class=" font-semibold"> 
+                {% render 'icon-plus' %}
+              </a>
+            </ajax-cart-quantity>
+          </div>
+          <!-- Item error messages -->
+          <div data-ajax-cart-errors="{{ line_item.key }}"></div>
+          <div>Total: <strong>{{ line_item.final_line_price | money }}</strong></div>
+          <!-- "Remove item" button -->
+          <a data-ajax-cart-request-button href="{{ line_item.url_to_remove }}">
+            Remove
+          </a> 
+        </div>
+      {% endfor %}
+    </div>
+  
+    {% form 'cart', cart, id: 'my-ajax-cart-form', class: 'mt-auto' %}
+      <button 
+        type="submit" 
+        name="checkout"
+        class="w-full px-6 py-4 bg-gray-900 text-white hover:bg-gray-700">
+        Checkout — {{ cart.total_price | money_with_currency }}
+      </button> 
+    {% endform %}
+  </div>
+</aside>
+
+{% schema %} 
+{ 
+  "name": "Ajax cart"
+} 
+{% endschema %}
