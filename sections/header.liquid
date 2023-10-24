@@ -1,22 +1,26 @@
 {%- assign title = section.settings.header_title -%}
 {%- assign main_menu_linklist = linklists[section.settings.menu].links -%}
 
-<div class="relative bg-white" x-data="{ mobileMenuOpen: false }">
+<div class="relative bg-white">
   <div class="mx-auto px-4 sm:px-6">
-    <div class="flex justify-between items-center py-6 md:justify-start md:space-x-10">
-      <!-- STORE NAME / STORE LOGO -->
-      <a href="{{ routes.root_url }}" class="flex justify-start lg:flex-1 truncate">
-        <h1 class="text-xl font-bold truncate">{{ title }}</h1>
-      </a>
+    <div class="flex justify-between items-center py-4 md:justify-start md:space-x-10">
 
-      <div class="-mr-2 -my-2 ml-3 md:hidden">
-        <button
-          x-on:click="mobileMenuOpen = true"
-          type="button" 
-          class="bg-white p-2 inline-flex items-center justify-center focus:outline-none">
-            {% render 'icon-menu' %}
-        </button>
+      <div class="flex items-center">
+        <div class="flex mr-2 md:hidden">
+          <button
+            x-on:click="mobileMenuOpen = true"
+            type="button" 
+            class="bg-white inline-flex items-center justify-center focus:outline-none">
+              {% render 'icon-menu' %}
+          </button>
+        </div>
+  
+        <!-- STORE NAME / STORE LOGO -->
+        <a href="{{ routes.root_url }}" class="flex justify-start lg:flex-1 truncate">
+          <h1 class="text-xl font-bold truncate">{{ title }}</h1>
+        </a>      
       </div>
+      
 
       <!-- NAVIGATION MENU -->
       <nav x-data="{ open: false }" class="hidden md:flex space-x-10">
@@ -56,12 +60,17 @@
         
       </nav>
 
-      <div class="hidden md:flex items-center justify-end md:flex-1 space-x-5">
-        <button 
-          x-on:click="cartOpen = ! cartOpen"
-          class="whitespace-nowrap text-base text-black hover:text-green-800">
-          {% render 'icon-shopping-bag' %}
-        </button>
+      <div class="flex items-center justify-end md:flex-1 space-x-5">
+        <div class="flex items-center">
+          <button 
+            x-on:click="cartOpen = ! cartOpen"
+            class="whitespace-nowrap text-base text-black hover:text-green-800">
+            {% render 'icon-shopping-bag' %}
+          </button>
+          <span data-ajax-cart-bind="item_count">
+            {{ cart.item_count }}
+          </span>
+        </div>
         {%- if shop.customer_accounts_enabled -%}
           <a href="{{ routes.account_login_url }}" class="text-base text-black hover:text-green-800">Login</a>
           <a href="{{ routes.account_register_url }}" class="text-base text-black hover:text-green-800">Register</a>          
@@ -70,13 +79,13 @@
     </div>
   </div>
 
-  <div x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 p-2 transform origin-top-left md:hidden">
-    <div class="border border-black ring-opacity-5 bg-white w-full">
+  <div x-show="mobileMenuOpen" class="absolute z-10 top-0 inset-x-0 h-screen w-screen transform origin-top-left p-2 md:hidden">
+    <div class="relative z-10 w-full h-full border border-black bg-white">
       <div class="p-5">
         <!-- MOBILE MENU HEADER TITLE PLUS CLOSE BUTTON -->
         <div class="flex items-center justify-between pb-3">
           <div>
-            <h1 class="text-lg text-black">{{ title }}</h1>
+            <p class="text-xl font-bold truncate">{{ title }}</p>
           </div>
           <div class="-mr-2">
             <button 
@@ -121,12 +130,14 @@
         </div>
       </div>
     </div>
+    <div class="absolute inset-0 w-full h-full bg-black opacity-60"></div>
   </div>
 </div>
 
 {% schema %}
 {
   "name": "Header",
+  "class": "sticky top-0 z-10 bg-white border-b border-black",
   "settings": [
     {
       "type": "text",

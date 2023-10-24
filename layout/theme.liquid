@@ -10,6 +10,7 @@
     {{ content_for_header }}
     <!-- Header hook for plugins -->
     {{ 'application.css' | asset_url | stylesheet_tag }}
+      
     <script type="application/json" data-ajax-cart-initial-state>
       {{ cart | json }}
     </script>
@@ -19,7 +20,7 @@
     <script src="{{ 'application.js' | asset_url }}" defer></script>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
   </head>
-  <body x-data="{ cartOpen: false }">
+  <body x-cloak x-data="{ cartOpen: false, mobileMenuOpen: false }" x-bind:class="{ 'overflow-hidden': cartOpen || mobileMenuOpen }">
     {%- section 'header' -%}
     <main role="main">
       {{ content_for_layout }}
