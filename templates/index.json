@@ -5,7 +5,13 @@
       "settings": {
         "featured_collection": "all"
       }
+    },
+    "half-hero": {
+      "type": "half-hero"
     }
   },
-  "order": ["featured-collection"]
+  "order": [
+    "featured-collection",
+    "half-hero"
+  ]
 }

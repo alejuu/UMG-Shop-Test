@@ -1,0 +1,118 @@
+{%- assign text_color = section.settings.text_color -%}
+{% capture text_style %} style="color:{{ text_color }}"{% endcapture %}
+
+<div class="{{ section.settings.container_width }}">
+
+  <div class="grid grid-cols-1 gap-0 md:grid-cols-2" style="background:{{ section.settings.background_color }}">
+    <div class="{{ section.settings.image_alignment }}">
+      {%- if section.settings.image -%}
+        <img 
+          src="{{ section.settings.image | image_url: width: 800 }}" 
+          alt="{{ section.settings.title }}" 
+          class="w-full object-cover"
+          width="full"
+          height="full"
+          loading="lazy">
+      {%- else -%} 
+        {{ 'product-1' | placeholder_svg_tag: 'w-full object-cover' }}
+      {%- endif -%}
+    </div>
+    <div class="flex flex-col justify-center items-center p-8">
+      {%- if section.settings.title -%}
+        <h2 class="text-3xl font-bold text-center mb-4" {{ text_style }}>{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.text -%}
+        <p class="text-center mb-4" {{ text_style }}>{{ section.settings.text }}</p>
+      {%- endif -%}
+      {%- if section.settings.link -%}
+        <a href="{{ section.settings.link }}" class="btn btn-primary">{{ section.settings.link_text }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Half Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image Alignment",
+      "options": [
+        {
+          "value": "md:order-0",
+          "label": "Left"
+        },
+        {
+          "value": "md:order-1",
+          "label": "Right"
+        }
+      ],
+      "default": "md:order-0"
+    },
+    {
+      "type": "header",
+      "content": "Section Settings",
+      "info": "Adjust colors and spacing for this section."
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Section Width",
+      "options": [
+        {
+          "value": "container mx-auto",
+          "label": "Fixed Width"
+        },
+        {
+          "value": "w-full",
+          "label": "Full Width"
+        }
+      ],
+      "default": "container mx-auto"
+    },
+    {
+      "type": "color_background",
+      "id": "background_color",
+      "label": "Background Color"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Half Hero"
+    }
+  ]
+}
+{% endschema %}
