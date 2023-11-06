@@ -11,7 +11,7 @@ This repository contains the "Joe Artist" Shopify theme developed for Universal 
 - Swiper
 - Liquid Ajax Cart
 
-## https://umg-shop-test.myshopify.com)https://umg-shop-test.myshopify.com
+## https://umg-shop-test.myshopify.com
 
 Password: joeartist
 
